@@ -1,5 +1,6 @@
 const { World, Engine, Runner, Render, Bodies } = Matter;
 
+const cells = 3;
 const width = 600;
 const height = 600;
 const engine = Engine.create();
@@ -26,16 +27,27 @@ const walls = [
 
 World.add(world, walls);
 
-const grid = Array(3)
+const grid = Array(cells)
   .fill(null)
-  .map(() => Array(3).fill(false));
+  .map(() => Array(cells).fill(false));
 
-const verticals = Array(3)
+const verticals = Array(cells)
   .fill(null)
-  .map(() => Array(2).fill(false));
+  .map(() => Array(cells - 1).fill(false));
 
-const horizontals = Array(2)
+const horizontals = Array(cells - 1)
   .fill(null)
-  .map(() => Array(3).fill(false));
+  .map(() => Array(cells).fill(false));
 
-console.log(horizontals);
+const startRow = Math.floor(Math.random() * cells);
+const startColumn = Math.floor(Math.random() * cells);
+
+const stepCells = (row, column) => {
+  // if I have visited cell at [row, column], then return
+  // mark this cell as visited
+  // assemble randomly-ordered list of neighbors
+  // see if that neighbor is our of bounds
+  // if we have visited that neighbor, continue to next neighbor
+  // remove a wall from either horizontals or verticals
+  // visit that next cell
+};
