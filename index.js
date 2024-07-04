@@ -1,8 +1,8 @@
 const { World, Engine, Runner, Render, Bodies, Body, Events } = Matter;
 
 const cells = 3;
-const width = 600;
-const height = 600;
+const width = window.innerWidth;
+const height = window.innerHeight;
 const unitLength = width / cells;
 const wallSize = 10;
 
@@ -115,6 +115,8 @@ horizontals.forEach((row, rowIndex) => {
       unitLength,
       wallSize,
       {
+        label: "wall",
+        mass: 0.1,
         isStatic: true,
       }
     );
@@ -133,6 +135,8 @@ verticals.forEach((row, rowIndex) => {
       wallSize,
       unitLength,
       {
+        label: "wall",
+        mass: 0.1,
         isStatic: true,
       }
     );
@@ -185,7 +189,12 @@ Events.on(engine, "collisionStart", (event) => {
       labels.includes(collision.bodyA.label) &&
       labels.includes(collision.bodyB.label)
     ) {
-      console.log("Won!!");
+      world.gravity.y = 1;
+      world.bodies.forEach((body) => {
+        if (body.label === "wall") {
+          Body.setStatic(body, false);
+        }
+      });
     }
   });
 });
